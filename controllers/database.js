@@ -5,6 +5,7 @@ const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbFile);
 
 module.exports = {
+    //Creates a table with name and arguments if not exists
     setupDatabase(name, args){
         db.serialize(() =>{
             if(!exists){
