@@ -1,4 +1,5 @@
 const dbFile = "./data/sqlite.db";
+const httpCodes = require('../util/responseCodes.json');
 const fs = require("fs");
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
@@ -24,15 +25,15 @@ module.exports = {
       db.all(`SELECT * from Users WHERE email=?`, email, function(err, rows) {
           if(err) { 
             console.error(err);
-            return 500;
+            return httpCodes.INTERNAL_SERVER_ERROR;
           }
           if(rows.length == 0){
             console.log("Not found");
-            return 404;
+            return httpCodes.NOT_FOUND;
           }else{
             console.log("The user exists");
             console.log(rows[0]);
-            return 200;
+            return httpCodes.OK;
           }
       });
     }
