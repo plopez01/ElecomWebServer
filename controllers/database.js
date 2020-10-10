@@ -15,5 +15,25 @@ module.exports = {
               console.log(`${name} Database ready!`);
             }
         });
+    },
+    registerUserDB(email){
+      db.run('INSERT INTO Users (email) VALUES (?)', email);
+      console.log("Inserted");
+    },
+    loginUserDB(email){
+
+    
+      db.all(`SELECT * from Users WHERE email=?`, email, function(err, rows) {
+          if(err) { 
+            console.error(err);
+          }
+          if(rows.length == 0){
+            console.log("Not found");
+          }else{
+            console.log("The user exists");
+            console.log(rows[0]);
+          }
+      });
     }
+
 }
