@@ -73,7 +73,7 @@ module.exports = {
           const incomingSaltedHash = crypoUtils.sha512Salt(cPass, rows[0].salt);
 
           if(rows[0].pskhash == incomingSaltedHash.hash){
-            console.log(`Logged new User with email: ${cEmail}`);
+            console.log(`Logged User with email: ${cEmail}`);
             resolve(httpCodes.OK);
           }else{
             resolve(httpCodes.UNAUTHORIZED);
