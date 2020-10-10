@@ -19,9 +19,9 @@ db.serialize(() =>{
 // load routes
 
 // routes
-var UserController = require('./controllers/user');
+var AuthController = require('./controllers/auth');
 
-app.get('/login', UserController.loginUser);
+app.get('/login', AuthController.loginUser);
 
 
 
