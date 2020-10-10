@@ -16,8 +16,14 @@ db.serialize(() =>{
   
 });
 
-app.get('/', function (req, res) {
-    res.send('Hello World')
-})
+// load routes
+
+// routes
+var UserController = require('./controllers/user');
+
+app.get('/login', UserController.loginUser);
+
+
+
 
 app.listen(3000);
