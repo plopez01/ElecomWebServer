@@ -5,8 +5,10 @@ var genSalt = function(len){
 }
 
 module.exports = {
-    sha512Salt(password){
-        const salt = genSalt(16);
+    sha512Salt(password, salt){
+        if(salt == null){
+            salt = genSalt(16);
+        }
 
         var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
     
@@ -14,7 +16,11 @@ module.exports = {
         var value = hash.digest('hex');
         return {
                 salt:salt,
-                passwordHash:value
+                hash:value
         };
-    } 
+    },
+    
+    cleanseString(string) {
+        return string.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
 }

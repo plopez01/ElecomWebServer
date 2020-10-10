@@ -1,25 +1,29 @@
-const { Database } = require('sqlite3');
 const DatabaseController = require('../controllers/database.js');
 const httpCodes = require('../util/responseCodes.json');
 
 module.exports = {
     loginUser(req, res){
-       
-        var params = req.body;
+        var body = req.body;
 
-        var email = params.email;
-
-        var pass = params.pass;
-
-        if(email){
-            res.status(DatabaseController.loginUserDB(email, pass));
+        if(body.email && body.password){
+            DatabaseController.loginUserDB(body.email, body.password).then(function(statusCode){
+                res.status(statusCode).send();
+            });
         }else{
-            res.status(httpCodes.NOT_FOUND).send({message: 'Falta el parametro'});
+            res.status(httpCodes.NOT_FOUND).send({message: 'Missing parameters'});
         }
     },
     
     registerUser(req, res){
+        var body = req.body;
 
+        if(body.email && body.password && body.username){
+            DatabaseController.registerUserDB(body.email, body.password, body.username).then(function(statusCode){
+                res.status(statusCode).send();
+            });
+        }else{
+            res.status(httpCodes.NOT_FOUND).send({message: 'Missing parameters'});
+        }
     }
     
 }
