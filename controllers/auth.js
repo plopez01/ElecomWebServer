@@ -1,5 +1,5 @@
 const { Database } = require('sqlite3');
-var DatabaseController = require('../controllers/database')
+var DatabaseController = require('../controllers/database');
 
 
 module.exports = {
@@ -9,11 +9,17 @@ module.exports = {
 
         var email = params.email;
 
+        var pass = params.pass;
+
         if(email){
-            DatabaseController.loginUserDB(email);
+            res.status(DatabaseController.loginUserDB(email, pass));
         }else{
-            return res.status(404).send({message: 'Falta el parametro'})
+            res.status(400).send({message: 'Falta el parametro'});
         }
+    },
+    
+    registerUser(req, res){
+        
     }
     
 }

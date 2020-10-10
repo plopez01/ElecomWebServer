@@ -16,5 +16,6 @@ DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, 
 // Routes
 app.post('/login', AuthController.loginUser);
 
+app.post('/register', AuthController.registerUser);
 
 app.listen(3000);
