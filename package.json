@@ -1,0 +1,26 @@
+{
+  "name": "elecomwebserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plopez01/ElecomWebServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plopez01/ElecomWebServer/issues"
+  },
+  "homepage": "https://github.com/plopez01/ElecomWebServer#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
