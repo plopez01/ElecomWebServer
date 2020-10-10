@@ -8,7 +8,7 @@ const db = new sqlite3.Database(dbFile);
 
 db.serialize(() =>{
   if(!exists){
-    db.run("CREATE TABLE Users (id INTEGRER PRIMARY KEY AUTOINCREMENT, name TEXT, pskhash TEXT, salt TEXT)");
+    db.run("CREATE TABLE Users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pskhash TEXT, salt TEXT)");
     console.log("Creating Users Table...");
   } else {
     console.log("Users Database ready!");
