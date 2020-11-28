@@ -78,8 +78,6 @@ module.exports = {
           }else{
             resolve(httpCodes.UNAUTHORIZED);
           }
-
-          
         }
       });
     });
