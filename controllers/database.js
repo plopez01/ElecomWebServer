@@ -14,7 +14,6 @@ module.exports = {
       response.send(JSON.stringify(rows));
     });
   },
-
   //Creates a table with name and arguments if not exists
   setupDatabase(name, args){
       db.serialize(() =>{
