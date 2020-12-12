@@ -2,6 +2,12 @@ const dbFile = "./data/sqlite.db";
 const httpCodes = require('../util/responseCodes.json');
 const crypoUtils = require('../util/crypto')
 const fs = require("fs");
+
+if (!fs.existsSync('./data')) {
+  console.log('[Database/INFO] Creating data directory...');
+  fs.mkdirSync('./data');
+}
+
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbFile);
@@ -16,13 +22,13 @@ module.exports = {
   },
   //Creates a table with name and arguments if not exists
   setupDatabase(name, args){
-      db.serialize(() =>{
-        if(!exists){
-          console.log(`[Database/INFO] Creating ${name} Table...`);
-          db.run(`CREATE TABLE ${name} (${args})`);
-        }
-        console.log(`[Database/INFO] ${name} Database ready!`);
-      });
+    db.serialize(() =>{
+      if(!exists){
+        console.log(`[Database/INFO] Creating ${name} Table...`);
+        db.run(`CREATE TABLE ${name} (${args})`);
+      }
+      console.log(`[Database/INFO] ${name} Database ready!`);
+    });
   },
   registerUserDB(email, pass, username){
     return new Promise(function(resolve) {
