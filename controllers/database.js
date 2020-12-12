@@ -3,6 +3,7 @@ const httpCodes = require('../util/responseCodes.json');
 const crypoUtils = require('../util/crypto')
 const fs = require("fs");
 
+//Crete data folder if doesn't exist
 if (!fs.existsSync('./data')) {
   console.log('[Database/INFO] Creating data directory...');
   fs.mkdirSync('./data');
