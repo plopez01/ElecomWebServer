@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-
 // Middlewares
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -20,4 +19,6 @@ app.post('/register', AuthController.registerUser);
 
 app.get("/see", DatabaseController.returnAllEntries);
 
+
 app.listen(3000);
+console.log('[Server/INFO] Server Ready!')

@@ -19,12 +19,10 @@ module.exports = {
   setupDatabase(name, args){
       db.serialize(() =>{
         if(!exists){
-          console.log(`Creating ${name} Table...`);
+          console.log(`[Database/INFO] Creating ${name} Table...`);
           db.run(`CREATE TABLE ${name} (${args})`);
-          console.log(`${name} Database ready!`);
-        } else {
-          console.log(`${name} Database ready!`);
         }
+        console.log(`[Database/INFO] ${name} Database ready!`);
       });
   },
   registerUserDB(email, pass, username){
@@ -37,16 +35,16 @@ module.exports = {
   
       db.all(`SELECT * from Users WHERE email=?`, cEmail, function(err, rows) {
         if(err) { 
-          console.error(err);
+          console.error('[Database/ERROR] ' + err);
           resolve(httpCodes.INTERNAL_SERVER_ERROR);
         }
         if(rows.length == 0){
           db.run('INSERT INTO Users (email, username, pskhash, salt) VALUES (?, ?, ?, ?)', [cEmail, cUsername, passwordData.hash, passwordData.salt], function(err){
             if(err) { 
-              console.error(err);
+              console.error('[Database/ERROR] ' + err);
               resolve(httpCodes.INTERNAL_SERVER_ERROR);
             }
-            console.log(`Registered new User with email: ${cEmail}`);
+            console.log(`[Database/INFO] Registered new User with email: ${cEmail}`);
             resolve(httpCodes.OK);
           });
         }else{
@@ -63,7 +61,7 @@ module.exports = {
 
       db.all(`SELECT * from Users WHERE email=?`, cEmail, function(err, rows) {
         if(err) { 
-          console.error(err);
+          console.error('[Database/ERROR] ' + err);
           resolve(httpCodes.INTERNAL_SERVER_ERROR);
         }
         if(rows.length == 0){
@@ -73,7 +71,7 @@ module.exports = {
           const incomingSaltedHash = crypoUtils.sha512Salt(cPass, rows[0].salt);
 
           if(rows[0].pskhash == incomingSaltedHash.hash){
-            console.log(`Logged User with email: ${cEmail}`);
+            console.log(`[Database/INFO] Logged User with email: ${cEmail}`);
             resolve(httpCodes.OK);
           }else{
             resolve(httpCodes.UNAUTHORIZED);
