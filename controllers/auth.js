@@ -13,7 +13,6 @@ module.exports = {
             res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
         }
     },
-    
     registerUser(req, res){
         var body = req.body;
 
@@ -25,5 +24,4 @@ module.exports = {
             res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
         }
     }
-    
 }
