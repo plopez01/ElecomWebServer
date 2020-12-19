@@ -10,7 +10,7 @@ module.exports = {
                 res.status(statusCode).send();
             });
         }else{
-            res.status(httpCodes.NOT_FOUND).send({message: 'Missing parameters'});
+            res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
         }
     },
     
@@ -22,7 +22,7 @@ module.exports = {
                 res.status(statusCode).send();
             });
         }else{
-            res.status(httpCodes.NOT_FOUND).send({message: 'Missing parameters'});
+            res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
         }
     }
     
