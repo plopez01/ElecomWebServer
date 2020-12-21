@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 var AuthController = require('./controllers/auth');
 var DatabaseController = require('./controllers/database')
 
-DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, pskhash TEXT, salt TEXT');
+DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, pskhash TEXT, salt TEXT, session TEXT');
 
 // Routes
 app.post('/login', AuthController.loginUser);
