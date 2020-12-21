@@ -6,8 +6,8 @@ module.exports = {
         var body = req.body;
 
         if(body.email && body.password){
-            DatabaseController.loginUserDB(body.email, body.password).then(function(data){
-                res.status(data.statusCode).send(data.sessionToken);
+            DatabaseController.loginUserDB(body.email, body.password).then(function(response){
+                res.status(response.statusCode).send(response.userData);
             });
         }else{
             res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
@@ -17,8 +17,8 @@ module.exports = {
         var body = req.body;
 
         if(body.email && body.password && body.username){
-            DatabaseController.registerUserDB(body.email, body.password, body.username).then(function(data){
-                res.status(data.statusCode).send(data.sessionToken);
+            DatabaseController.registerUserDB(body.email, body.password, body.username).then(function(response){
+                res.status(response.statusCode).send(response.userData);
             });
         }else{
             res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});

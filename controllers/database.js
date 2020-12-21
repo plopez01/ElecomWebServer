@@ -55,7 +55,7 @@ module.exports = {
           db.run('INSERT INTO Users (email, username, pskhash, salt, session) VALUES (?, ?, ?, ?, ?)', [cEmail, cUsername, passwordData.hash, passwordData.salt, session], function(err){
             handleError(resolve, err);
             console.log(`[Database/INFO] Registered new User with email: ${cEmail}`);
-            resolve({ statusCode: httpCodes.OK, sessionToken: session});
+            resolve({ statusCode: httpCodes.OK, userData: { username: cUsername, sessionToken: session } });
           });
         }else{
           resolve({ statusCode: httpCodes.NOT_ACCEPTABLE });
@@ -82,7 +82,7 @@ module.exports = {
             db.all(`UPDATE Users SET session=? WHERE email=?`, [session, cEmail], function(err) {
               handleError(resolve, err);
               console.log(`[Database/INFO] Logged User with email: ${cEmail}`);
-              resolve({ statusCode: httpCodes.OK, sessionToken: session });
+              resolve({ statusCode: httpCodes.OK, userData: { username: rows[0].username, sessionToken: session } });
             });
           }else{
             resolve({ statusCode: httpCodes.UNAUTHORIZED });
