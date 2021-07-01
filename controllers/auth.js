@@ -28,7 +28,7 @@ module.exports = {
         var body = req.body;
 
         if(body.sessionToken){
-            DatabaseController.registerUserDB(body.sessionToken).then(function(response){
+            DatabaseController.sessionLogin(body.sessionToken).then(function(response){
                 res.status(response.statusCode).send(response.message);
             });
         }else{

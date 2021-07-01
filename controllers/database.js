@@ -96,12 +96,12 @@ module.exports = {
   },
   sessionLogin(sessionToken){
     return new Promise(function(resolve) {
-
       db.all(`SELECT * from Users WHERE session=?`, sessionToken, function(err, rows) {
         handleError(resolve, err);
         if(rows.length == 0){
           resolve({ statusCode: httpCodes.NOT_FOUND, message: 'Failed' });
         }else{
+          console.log(`[Database/INFO] Logged User with session: ${sessionToken}`);
           resolve({ statusCode: httpCodes.OK, message: 'Success' });
         }
       });
