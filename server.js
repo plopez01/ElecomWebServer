@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 
 // Middlewares
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 
 // Controllers
 var AuthController = require('./controllers/auth');
