@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 // Controllers
 var AuthController = require('./controllers/auth');
-var DatabaseController = require('./controllers/database')
+var DatabaseController = require('./controllers/database');
 
 DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, pskhash TEXT, salt TEXT, session TEXT');
 
@@ -21,4 +21,4 @@ app.get("/see", DatabaseController.returnAllEntries);
 
 
 app.listen(3000);
-console.log('[Server/INFO] Server Ready!')
+console.log('[Server/INFO] Server Ready!');
