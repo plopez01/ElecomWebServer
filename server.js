@@ -9,12 +9,14 @@ app.use(express.json());
 var AuthController = require('./controllers/auth');
 var DatabaseController = require('./controllers/database');
 
-DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, pskhash TEXT, salt TEXT, session TEXT');
+DatabaseController.setupDatabase('Users','id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, tag TEXT, pskhash TEXT, salt TEXT, session TEXT');
 
 // Routes
-app.post('/login', AuthController.loginUser);
+app.post('/auth/login', AuthController.loginUser);
 
-app.post('/register', AuthController.registerUser);
+app.post('/auth/register', AuthController.registerUser);
+
+app.post('/auth/session', AuthController.loginUserWithSession);
 
 app.get("/see", DatabaseController.returnAllEntries);
 

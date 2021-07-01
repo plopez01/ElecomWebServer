@@ -23,5 +23,16 @@ module.exports = {
         }else{
             res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
         }
+    },
+    loginUserWithSession(req, res){
+        var body = req.body;
+
+        if(body.sessionToken){
+            DatabaseController.registerUserDB(body.sessionToken).then(function(response){
+                res.status(response.statusCode).send(response.message);
+            });
+        }else{
+            res.status(httpCodes.BAD_REQUEST).send({message: 'Missing parameters'});
+        }
     }
 }

@@ -52,10 +52,13 @@ module.exports = {
       db.all(`SELECT * from Users WHERE email=?`, cEmail, function(err, rows) {
         handleError(resolve, err);
         if(rows.length == 0){
-          db.run('INSERT INTO Users (email, username, pskhash, salt, session) VALUES (?, ?, ?, ?, ?)', [cEmail, cUsername, passwordData.hash, passwordData.salt, session], function(err){
+          db.all(`SELECT * from Users WHERE username=?`, cUsername, function(err, rows) {
             handleError(resolve, err);
-            console.log(`[Database/INFO] Registered new User with email: ${cEmail}`);
-            resolve({ statusCode: httpCodes.OK, userData: { username: cUsername, sessionToken: session } });
+            db.run('INSERT INTO Users (email, username, tag, pskhash, salt, session) VALUES (?, ?, ?, ?, ?, ?)', [cEmail, cUsername, rows.length, passwordData.hash, passwordData.salt, session], function(err){
+              handleError(resolve, err);
+              console.log(`[Database/INFO] Registered new User with email: ${cEmail}`);
+              resolve({ statusCode: httpCodes.OK, userData: { username: cUsername, tag: rows.length, sessionToken: session } });
+            });
           });
         }else{
           resolve({ statusCode: httpCodes.NOT_ACCEPTABLE });
@@ -82,11 +85,24 @@ module.exports = {
             db.all(`UPDATE Users SET session=? WHERE email=?`, [session, cEmail], function(err) {
               handleError(resolve, err);
               console.log(`[Database/INFO] Logged User with email: ${cEmail}`);
-              resolve({ statusCode: httpCodes.OK, userData: { username: rows[0].username, sessionToken: session } });
+              resolve({ statusCode: httpCodes.OK, userData: { username: rows[0].username, tag: rows[0].tag, sessionToken: session } });
             });
           }else{
             resolve({ statusCode: httpCodes.UNAUTHORIZED });
           }
+        }
+      });
+    });
+  },
+  sessionLogin(sessionToken){
+    return new Promise(function(resolve) {
+
+      db.all(`SELECT * from Users WHERE session=?`, sessionToken, function(err, rows) {
+        handleError(resolve, err);
+        if(rows.length == 0){
+          resolve({ statusCode: httpCodes.NOT_FOUND, message: 'Failed' });
+        }else{
+          resolve({ statusCode: httpCodes.OK, message: 'Success' });
         }
       });
     });
